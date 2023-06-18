@@ -1,0 +1,78 @@
+# Compiled object files
+*.slo
+*.lo
+*.o
+*.obj
+*.so
+*.dylib
+*.dll
+*.exe
+*.out
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Directories
+bin/
+build/
+Debug/
+Release/
+dist/
+docs/_build/
+docs/api/
+docs/doctrees/
+examples/build/
+test/build/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# Code quality tools
+.coverage
+.pytest_cache
+flake.lock
+htmlcov/
+.idea/
+.vscode/
+venv/
+__pycache__/
+
+# Package files
+*.egg-info/
+dist/
+build/
+
+# Editors
+*.swp
+*~
+
+# Ignore all .env files
+.env*
+
+# Ignore local development configuration files
+config/
+config.local/
+config.dev/
+config.development/
+config.staging/
+config.production/
+
+# Ignore logs and backups
+*.log
+*.bak
+*.backup
+*.old
+
+
+.terraform
+.tfstate
