@@ -29,10 +29,8 @@ spec:
             - containerPort: 80
               name: web
           volumeMounts:
-            - name: www
-              mountPath: /usr/share/nginx/html
             - name: volume1
-              mountPath: /data1
+              mountPath: /usr/share/nginx/html
             - name: volume2
               mountPath: /data2
             - name: volume3
@@ -51,15 +49,17 @@ spec:
               mountPath: /data9
             - name: volume10
               mountPath: /data10
+            - name: volume11
+              mountPath: /data11
+            - name: volume12
+              mountPath: /data12
+            - name: volume13
+              mountPath: /data13
+            - name: volume14
+              mountPath: /data14
+            - name: volume15
+              mountPath: /data15
   volumeClaimTemplates:
-    - metadata:
-        name: www
-      spec:
-        accessModes: [ "ReadWriteOnce" ]
-        storageClassName: "gp2"
-        resources:
-          requests:
-            storage: 10Mi
     - metadata:
         name: volume1
       spec:
@@ -67,7 +67,7 @@ spec:
         storageClassName: "gp2"
         resources:
           requests:
-            storage: 10Mi
+            storage: 1Gi
     - metadata:
         name: volume2
       spec:
@@ -75,7 +75,7 @@ spec:
         storageClassName: "gp2"
         resources:
           requests:
-            storage: 10Mi
+            storage: 1Gi
     - metadata:
         name: volume3
       spec:
@@ -83,7 +83,7 @@ spec:
         storageClassName: "gp2"
         resources:
           requests:
-            storage: 10Mi
+            storage: 1Gi
     - metadata:
         name: volume4
       spec:
@@ -91,7 +91,7 @@ spec:
         storageClassName: "gp2"
         resources:
           requests:
-            storage: 10Mi
+            storage: 1Gi
     - metadata:
         name: volume5
       spec:
@@ -99,7 +99,7 @@ spec:
         storageClassName: "gp2"
         resources:
           requests:
-            storage: 10Mi
+            storage: 1Gi
     - metadata:
         name: volume6
       spec:
@@ -107,7 +107,7 @@ spec:
         storageClassName: "gp2"
         resources:
           requests:
-            storage: 10Mi
+            storage: 1Gi
     - metadata:
         name: volume7
       spec:
@@ -115,7 +115,7 @@ spec:
         storageClassName: "gp2"
         resources:
           requests:
-            storage: 10Mi
+            storage: 1Gi
     - metadata:
         name: volume8
       spec:
@@ -123,7 +123,7 @@ spec:
         storageClassName: "gp2"
         resources:
           requests:
-            storage: 10Mi
+            storage: 1Gi
     - metadata:
         name: volume9
       spec:
@@ -131,7 +131,7 @@ spec:
         storageClassName: "gp2"
         resources:
           requests:
-            storage: 10Mi
+            storage: 1Gi
     - metadata:
         name: volume10
       spec:
@@ -139,4 +139,44 @@ spec:
         storageClassName: "gp2"
         resources:
           requests:
-            storage: 10Mi
+            storage: 1Gi
+    - metadata:
+        name: volume11
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "gp2"
+        resources:
+          requests:
+            storage: 1Gi
+    - metadata:
+        name: volume12
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "gp2"
+        resources:
+          requests:
+            storage: 1Gi
+    - metadata:
+        name: volume13
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "gp2"
+        resources:
+          requests:
+            storage: 1Gi
+    - metadata:
+        name: volume14
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "gp2"
+        resources:
+          requests:
+            storage: 1Gi
+    - metadata:
+        name: volume15
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "gp2"
+        resources:
+          requests:
+            storage: 1Gi
