@@ -4,10 +4,10 @@
 - Deploy the stack using the following command:
 
 ```bash
-# Pre: Authenticate with AWS (Default profile or AWS_PROFILE or ENV VARS
+# Pre: Authenticate with AWS (Default profile or AWS_PROFILE or ENV VARS)
 make deploy
 
-# Pre: Authenticate with AWS (Default profile or AWS_PROFILE or ENV VARS
+# Pre: Authenticate with AWS (Default profile or AWS_PROFILE or ENV VARS)
 make login
 
 # Ensure Python3 and Python3-env is installed
@@ -16,6 +16,7 @@ make run
 - You can typically expect the issue to show itself within 60 minutes or faster (the more volumes, the quicker the reproduction).
 - You may need to comment out some volumes in `manifests/stateful_set.yml` if you are running the python code against nodes which already have scheduled stateful pods (to prevent getting close to the node volume limit).
 - If running on a different cluster, you may need to modify the `manifests/stateful_set.yml` to use a different node selector and tolerations.
+- ex. `NODE_SELECTOR="karpenter.sh/provisioner-name=nodes,topology.ebs.csi.aws.com/zone=us-east-1b"`
 
 # Failure Cases
 
@@ -145,11 +146,10 @@ log-group-names: /aws/eks/ebs-test-cluster/cluster
 start-time: 2023-06-19T08:07:00.000Z  
 end-time: 2023-06-19T08:15:00.000Z  
 query-string:
-```
 filter requestURI like "/api/v1/persistentvolumes/"
 | fields @timestamp, requestURI, objectRef.name, user.username
 | sort @timestamp asc
-```
+
 ---
 | @timestamp | requestURI | objectRef.name | user.username |
 | --- | --- | --- | --- |
@@ -263,3 +263,5 @@ filter requestURI like "/api/v1/persistentvolumes/"
 | 2023-06-19 08:14:07.802 | /api/v1/persistentvolumes/pvc-42d8283d-38c8-49af-a09b-0822b118b40d | pvc-42d8283d-38c8-49af-a09b-0822b118b40d | system:node:ip-10-0-0-47.eu-west-1.compute.internal |
 ---
 ```
+
+This is undesired behaviour, which has been patched in upstream by https://github.com/kubernetes/kubernetes/pull/116138

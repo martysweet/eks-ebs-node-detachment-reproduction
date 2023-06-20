@@ -59,6 +59,16 @@ spec:
               mountPath: /data14
             - name: volume15
               mountPath: /data15
+            - name: volume16
+              mountPath: /data16
+            - name: volume17
+              mountPath: /data17
+            - name: volume18
+              mountPath: /data18
+            - name: volume19
+              mountPath: /data19
+            - name: volume20
+              mountPath: /data20
   volumeClaimTemplates:
     - metadata:
         name: volume1
@@ -174,6 +184,46 @@ spec:
             storage: 1Gi
     - metadata:
         name: volume15
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "gp2"
+        resources:
+          requests:
+            storage: 1Gi
+    - metadata:
+        name: volume16
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "gp2"
+        resources:
+          requests:
+            storage: 1Gi
+    - metadata:
+        name: volume17
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "gp2"
+        resources:
+          requests:
+            storage: 1Gi
+    - metadata:
+        name: volume18
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "gp2"
+        resources:
+          requests:
+            storage: 1Gi
+    - metadata:
+        name: volume19
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "gp2"
+        resources:
+          requests:
+            storage: 1Gi
+    - metadata:
+        name: volume20
       spec:
         accessModes: [ "ReadWriteOnce" ]
         storageClassName: "gp2"
