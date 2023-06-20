@@ -1,6 +1,7 @@
 from kubernetes import client, config
 import yaml
 import time
+import datetime
 from pathlib import Path
 from termcolor import colored
 
@@ -69,7 +70,9 @@ def main():
 
 def kill_pod():
     # Delete the pod
-    fmt_print("Deleting pod")
+    fmt_print("Deleting pod in 5 seconds...")
+    # We can expect the scheduler to immediately schedule the pod on the other node
+    time.sleep(5)
     api_core.delete_namespaced_pod(
         name=POD_NAME,
         namespace="default",
@@ -77,8 +80,6 @@ def kill_pod():
             grace_period_seconds=0
         )
     )
-    # We can expect the scheduler to immediately schedule the pod on the other node
-    time.sleep(5)
 
 def wait_for_running_pod():
     # Wait for the pod to be running
@@ -91,20 +92,22 @@ def wait_for_running_pod():
                 name=POD_NAME,
                 namespace="default"
             )
+
             if pod.status.phase == "Running":
                 return
+
+            if count % 10:
+                fmt_print("Still waiting for pod to become running after {} sec. State: {}. {}".format(
+                    count * WAIT_RUNNING_DELAY,
+                    colored(pod.status.phase, "red"),
+                    get_va_status()
+                ))
+
         except Exception as e:
             if e.status == 404:
                 fmt_print("Pod not found")
             else:
                 print(e)
-
-        if count % 10:
-            fmt_print("Still waiting for pod to become running after {} sec. State: {}. {}".format(
-                count*WAIT_RUNNING_DELAY,
-                colored(pod.status.phase, "red"),
-                get_va_status()
-            ))
 
         time.sleep(WAIT_RUNNING_DELAY)
 
@@ -177,7 +180,8 @@ def create_stateful_set():
     fmt_print("StatefulSet created")
 
 def get_time():
-    return time.strftime("%H:%M:%S", time.localtime())
+    # Return UTC with a Z suffix
+    return datetime.datetime.utcnow().isoformat() + "Z"
 
 def fmt_print(msg):
     print("[{}] {}".format(colored(get_time(), 'green'), msg))

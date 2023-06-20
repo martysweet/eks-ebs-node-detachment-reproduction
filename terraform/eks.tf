@@ -13,6 +13,12 @@ module "eks" {
   create_cloudwatch_log_group = true
   cluster_enabled_log_types   = ["audit", "api", "authenticator", "controllerManager", "scheduler"]
 
+  eks_managed_node_group_defaults = {
+    iam_role_additional_policies = {
+      AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+    }
+  }
+
   eks_managed_node_groups = {
     core = {
       # Run any supporting resources such as controllers
@@ -31,7 +37,6 @@ module "eks" {
       instance_types = ["t3a.large"]
 
       subnet_ids         = [module.vpc.private_subnets[0]] # Force single AZ for EBS ease of node placement
-      kubelet_extra_args = "--node-labels=testcase --register-with-taints=testcase:NoSchedule"
 
       labels = {
         node_role = "test"
@@ -46,8 +51,6 @@ module "eks" {
       ]
     }
   }
-
-
 
   # aws-auth configmap
   create_aws_auth_configmap = true
