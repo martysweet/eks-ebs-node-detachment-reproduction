@@ -20,15 +20,15 @@ module "eks" {
   }
 
   eks_managed_node_groups = {
-    core = {
-      # Run any supporting resources such as controllers
-      min_size       = 1
-      max_size       = 1
-      desired_size   = 1
-      instance_types = ["t3a.large"]
-
-      capacity_type = "SPOT"
-    }
+#     core = {
+#       # Run any supporting resources such as controllers
+#       min_size       = 1
+#       max_size       = 1
+#       desired_size   = 1
+#       instance_types = ["t3a.large"]
+#
+#       capacity_type = "SPOT"
+#     }
     testcase = {
       # Dedicated to running EBS Helm for reproduction
       min_size       = 2
@@ -42,13 +42,14 @@ module "eks" {
         node_role = "test"
       }
 
-      taints = [
-        {
-          key    = "node_role"
-          value  = "test"
-          effect = "NO_SCHEDULE"
-        }
-      ]
+
+#       taints = [
+#         {
+#           key    = "node_role"
+#           value  = "test"
+#           effect = "NO_SCHEDULE"
+#         }
+#       ]
     }
   }
 
@@ -83,8 +84,9 @@ module "eks_blueprints_addons" {
   }
 
   enable_metrics_server               = false
-  enable_aws_load_balancer_controller = false
   enable_aws_cloudwatch_metrics       = false
+
+  enable_aws_load_balancer_controller = false
   enable_aws_for_fluentbit            = false
   enable_karpenter                    = false
   enable_kube_prometheus_stack        = false

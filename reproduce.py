@@ -5,8 +5,8 @@ import datetime
 from pathlib import Path
 from termcolor import colored
 
-STATEFUL_SET_NAME="ebstest"
-POD_NAME="ebstest-0"
+STATEFUL_SET_NAME="ebstest1"
+POD_NAME="ebstest1-0"
 
 NODE_SELECTOR="node_role=test"
 WAIT_RUNNING_DELAY=5

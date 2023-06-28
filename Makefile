@@ -26,3 +26,11 @@ py-init:
 
 py-run:
 	bash -c "source venv/bin/activate && python3 reproduce.py"
+
+py-ec2-run:
+	bash -c "source venv/bin/activate && python3 ec2-status.py"
+
+py-mount-unmount:
+	bash -c "source venv/bin/activate && python3 ec2-attach-detach.py"
+
+
