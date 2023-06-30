@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ebstest-affinity
+spec:
+  selector:
+    matchLabels:
+      app: nginx-affinity
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: nginx-affinity
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchLabels:
+                  app: nginx-affinity
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: topology.kubernetes.io/zone
+                    operator: In
+                    values:
+                      - eu-central-1c
+      nodeSelector:
+        "karpenter.sh/provisioner-name": nodes-ubuntu
+      tolerations:
+        - key: "sportradar.com/testing"
+          operator: "Equal"
+          value: "ebs"
+          effect: "NoSchedule"
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: nginx
+          image: registry.k8s.io/nginx-slim:0.8
+          ports:
+            - containerPort: 80
+              name: web

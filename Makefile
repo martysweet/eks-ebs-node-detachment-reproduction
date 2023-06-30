@@ -26,3 +26,9 @@ py-init:
 
 py-run:
 	bash -c "source venv/bin/activate && python3 reproduce.py"
+
+py-watch-nodes:
+	bash -c "source venv/bin/activate && python3 watch_nodes.py"
+
+py-watch-pods:
+	bash -c "source venv/bin/activate && python3 watch_pods.py"
